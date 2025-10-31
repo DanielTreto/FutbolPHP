@@ -27,7 +27,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $partido['idequipo1'] == $equipo_visitante || $partido['idequipo2'] == $equipo_visitante
             ) {
                 $insertar = false;
-                echo "<script>alert(\"El equipo local o el equipo visitante ya tiene un partido en esta jornada\");</script>";
+?>
+                <div class="container mt-4">
+                    <div class="alert alert-warning" role="alert">
+                        Error: Uno de los dos equipos ya juega en esta jornada
+                    </div>
+                </div>
+        <?php
                 break;
             }
         }
@@ -37,7 +43,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit;
         }
     } else {
-        echo "<script>alert(\"El equipo local y el equipo visitante deben ser diferentes\");</script>";
+        ?>
+        <div class="container mt-4">
+            <div class="alert alert-warning" role="alert">
+                Error: El equipo local y el equipo visitante deben ser distintos
+            </div>
+        </div>
+        <?php
     }
 }
 

@@ -9,7 +9,12 @@ if (isset($_SESSION['partido'])) {
     header('Location: equipos.php');
     exit();
 } else {
-    echo "<div class='main'><br>" .
-         "No puedes salir de sesión porque no estás registrado</div>";
+    ?>
+    <div class="container mt-4">
+        <div class="alert alert-warning" role="alert">
+            Error: No puedes salir de sesión porque no estás registrado
+        </div>
+    </div>
+    <?php
 }
 ?>

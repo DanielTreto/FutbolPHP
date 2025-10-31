@@ -15,7 +15,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Comprueba si ya existe un equipo con ese nombre
     if ($equiposDAO->checkExists($nombre)) {
-        echo "<script>alert(\"Ya existe un equipo con ese nombre\");</script>";
+        ?>
+        <div class="container mt-4">
+            <div class="alert alert-warning" role="alert">
+                Error: Ya existe un equipo con ese nombre
+            </div>
+        </div>
+        <?php
     } else {
         $equiposDAO->insert($nombre, $estadio, $imagen);
         header("Location: equipos.php");
@@ -38,7 +44,7 @@ if (isset($_GET['id'])) {
         <?php
         pintarTitulo("Equipos");
         foreach ($equipos as $equipo) {
-            pintarEquipoCard($equipo,true,'text-start', 25, true);
+            pintarEquipoCard($equipo, true, 'text-start', 25, true);
         }
         ?>
     </div>
@@ -98,5 +104,5 @@ if (isset($_GET['id'])) {
             </div>
         </div>
     </form>
-    
+
 </div>
