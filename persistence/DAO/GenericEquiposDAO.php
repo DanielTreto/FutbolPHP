@@ -1,5 +1,6 @@
 <?php
-abstract class GenericDAO {
+require_once(__DIR__ . '/../conf/PersistentManager.php');
+abstract class GenericEquiposDAO {
 
   //Conexión a BD
   protected $conn = null;
@@ -9,10 +10,8 @@ abstract class GenericDAO {
   }
 
   // métodos abstractos para CRUD de clases que hereden
-  abstract protected function insert($email, $password);
+  abstract protected function insert($nombre, $estadio, $imagen);
   abstract protected function selectAll();
   abstract protected function selectById($id);
-  abstract protected function update($id, $email, $password);
-  abstract protected function delete($id);
 
 }
