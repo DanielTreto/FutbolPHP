@@ -7,11 +7,13 @@ require_once('../templates/plantillaEquipos.php');
 $equiposDAO = new EquiposDAO();
 $equipos =  $equiposDAO->selectAll();
 
+// Verifica el envío del formulario para añadir un nuevo equipo
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = trim($_POST['nombre']);
     $estadio = trim($_POST['estadio']);
     $imagen = trim($_POST['imagen']);
 
+    // Comprueba si ya existe un equipo con ese nombre
     if ($equiposDAO->checkExists($nombre)) {
         echo "<script>alert(\"Ya existe un equipo con ese nombre\");</script>";
     } else {
@@ -21,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+// Verifica si se ha seleccionado un equipo para ver sus partidos
 if (isset($_GET['id'])) {
     SessionHelper::setSession($_GET['id']);
     header("Location: partidosEquipo.php?id=" . $_GET['id']);

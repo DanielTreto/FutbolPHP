@@ -4,28 +4,28 @@ require 'GenericEquiposDAO.php';
 class EquiposDAO extends GenericEquiposDAO
 {
 
-  //Se define una constante con el nombre de la tabla
   const EQUIPOS_TABLE = 'equipos';
 
+  // Obtiene todos los equipos de la base de datos
   public function selectAll()
   {
     $query = "SELECT * FROM " . EquiposDAO::EQUIPOS_TABLE;
     $result = mysqli_query($this->conn, $query);
-    $users = array();
-    while ($userBD = mysqli_fetch_array($result)) {
-      $user = array(
-        'id' => $userBD["id"],
-        'nombre' => $userBD["nombre"],
-        'estadio' => $userBD["estadio"],
-        'imagen' => $userBD["imagen"]
+    $equipos = array();
+    while ($equipoBD = mysqli_fetch_array($result)) {
+      $equipo = array(
+        'id' => $equipoBD["id"],
+        'nombre' => $equipoBD["nombre"],
+        'estadio' => $equipoBD["estadio"],
+        'imagen' => $equipoBD["imagen"]
       );
-      array_push($users, $user);
+      array_push($equipos, $equipo);
     }
-    return $users;
+    return $equipos;
   }
 
 
-
+  // Inserta un nuevo equipo en la base de datos
   public function insert($nombre, $estadio, $imagen)
   {
     $query = "INSERT INTO " . EquiposDAO::EQUIPOS_TABLE .
@@ -35,6 +35,7 @@ class EquiposDAO extends GenericEquiposDAO
     return $stmt->execute();
   }
 
+  // Comprueba si existe un equipo con el nombre especificado
   public function checkExists($nombre)
   {
     $query = "SELECT nombre FROM " . EquiposDAO::EQUIPOS_TABLE . " WHERE nombre=?";
@@ -49,7 +50,7 @@ class EquiposDAO extends GenericEquiposDAO
     return ($count > 0);
   }
 
-
+  // Obtiene un equipo por su ID
   public function selectById($id)
   {
     $query = "SELECT nombre, estadio, imagen FROM " . EquiposDAO::EQUIPOS_TABLE . " WHERE id=?";
@@ -57,15 +58,15 @@ class EquiposDAO extends GenericEquiposDAO
     mysqli_stmt_bind_param($stmt, 'i', $id);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_bind_result($stmt, $nombre, $estadio, $imagen);
-    $user = array();
+    $equipo = array();
     while (mysqli_stmt_fetch($stmt)) {
-      $user = array(
+      $equipo = array(
         'nombre' => $nombre,
         'estadio' => $estadio,
         'imagen' => $imagen
       );
     }
 
-    return $user;
+    return $equipo;
   }
 }

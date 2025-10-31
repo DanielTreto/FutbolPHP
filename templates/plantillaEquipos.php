@@ -1,4 +1,5 @@
 <?php
+// Crea una card con la información y escudo del equipo
 function pintarEquipoCard($equipo, $imgAlineacion , $alineacion, $width, $boton)
 {
     echo "<div class='card m-2 d-flex flex-row align-items-center' style='width: {$width}rem;'>";
@@ -18,6 +19,7 @@ function pintarEquipoCard($equipo, $imgAlineacion , $alineacion, $width, $boton)
     echo "</div>";
 }
 
+// Genera un título con una línea horizontal debajo
 function pintarTitulo($texto){
     echo "<div class='col-md-12'>";
     echo "<h2>$texto</h2>";

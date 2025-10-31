@@ -2,6 +2,8 @@
 $dir = __DIR__;
 $urlApp = "/FutbolPHP/";
 require_once $dir . '/../utils/SessionHelper.php';
+
+// Verifica si el usuario está logueado
 $loggedin = SessionHelper::loggedin();
 ?>
 
@@ -14,6 +16,8 @@ $loggedin = SessionHelper::loggedin();
   <link rel="stylesheet" href="../assets/css/bootstrap.css">
 
 </head>
+
+
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
@@ -34,8 +38,9 @@ $loggedin = SessionHelper::loggedin();
         <li class="nav-item">
           <a class="nav-link" href="partidos.php">Partidos</a>
         </li>
-
-        <?php if ($loggedin) {
+        <?php
+        // Muestra el botón de salir solo si el usuario está logueado
+        if ($loggedin) {
           echo "<li class='nav-item'>";
           echo "<a class='nav-link' href='logout.php'>Salir</a>";
           echo "</li>";

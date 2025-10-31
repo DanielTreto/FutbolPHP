@@ -11,12 +11,14 @@ $equipos = $equiposDAO->selectAll();
 $partidos = $partidoDAO->selectAll();
 $jornadas = $partidoDAO->selectJornadas();
 
+// Verifica el envío del formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $jornada = $_POST['jornada'];
     $equipo_local = $_POST['equipo_local'];
     $equipo_visitante = $_POST['equipo_visitante'];
     $insertar = true;
 
+    // Comprueba que no se enfrenten el mismo equipo y la disponibilidad de los equipos en la jornada
     if ($equipo_local != $equipo_visitante) {
         $partidosJornada = $partidoDAO->selectPartidosByJornada($jornada);
         foreach ($partidosJornada as $partido) {

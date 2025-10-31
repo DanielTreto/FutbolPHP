@@ -3,10 +3,7 @@
 require_once('../templates/header.php');
 require_once('../utils/SessionHelper.php');
 
-if (!isset($_SESSION)) {
-    session_start();
-}
-
+// Verifica si existe un partido en la sesión para cerrarla
 if (isset($_SESSION['partido'])) {
     SessionHelper::destroySession();
     header('Location: equipos.php');

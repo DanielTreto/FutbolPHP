@@ -4,11 +4,10 @@ require 'GenericPartidoDAO.php';
 class PartidoDAO extends GenericPartidoDAO
 {
 
-    //Se define una constante con el nombre de la tabla
     const PARTIDOS_TABLE = 'partidos';
     const EQUIPOS_TABLE = 'equipos';
 
-
+    // Obtiene todos los partidos de la base de datos
     public function selectAll()
     {
         $query = "SELECT idequipo1, idequipo2, resultado FROM " . self::PARTIDOS_TABLE;
@@ -27,7 +26,7 @@ class PartidoDAO extends GenericPartidoDAO
         return $partidos;
     }
 
-
+    // Obtiene los partidos de un equipo específico por su ID
     public function selectById($id)
     {
         $query = "SELECT id, idEquipo1, idEquipo2, resultado, jornada FROM " . self::PARTIDOS_TABLE . " WHERE idEquipo1 = ? OR idEquipo2 = ?";
@@ -50,20 +49,22 @@ class PartidoDAO extends GenericPartidoDAO
         return $partidos;
     }
 
+    // Obtiene todas las jornadas disponibles ordenadas ascendentemente
     public function selectJornadas()
     {
         $query = "SELECT DISTINCT jornada FROM " . self::PARTIDOS_TABLE . " ORDER BY jornada ASC";
         $stmt = mysqli_prepare($this->conn, $query);
         $result = mysqli_query($this->conn, $query);
         $jornadas = array();
-        while ($userBD = mysqli_fetch_array($result)) {
+        while ($partidoBD = mysqli_fetch_array($result)) {
             $jornadas[] = array(
-                'jornada' => $userBD["jornada"],
+                'jornada' => $partidoBD["jornada"],
             );
         }
         return $jornadas;
     }
 
+    // Obtiene los partidos de una jornada específica
     public function selectPartidosByJornada($jornada)
     {
         $query = "SELECT idequipo1, idequipo2, resultado FROM " . self::PARTIDOS_TABLE . " WHERE jornada=?";
@@ -84,7 +85,7 @@ class PartidoDAO extends GenericPartidoDAO
         return $partidos;
     }
 
-
+    // Obtiene la jornada de un partido específico
     public function selectJornadabyPartido($partido)
     {
         $query = "SELECT DISTINCT jornada FROM " . self::PARTIDOS_TABLE . " WHERE id=? ORDER BY jornada ASC";
@@ -102,6 +103,7 @@ class PartidoDAO extends GenericPartidoDAO
         return $jornadas;
     }
 
+    // Inserta un nuevo partido con resultado aleatorio
     public function insert($idequipo1, $idequipo2, $jornada)
     {
         $opciones = ['1', 'X', '2'];

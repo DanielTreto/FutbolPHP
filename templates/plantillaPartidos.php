@@ -1,6 +1,7 @@
 <?php
 require_once('plantillaEquipos.php');
 
+// Determina si un resultado está activo
 function resultados($resultado, $txt)
 {
     if ($resultado == $txt) {
@@ -9,7 +10,7 @@ function resultados($resultado, $txt)
     return '';
 }
 
-
+// Muestra los posibles resultados (1,X,2) junto con el estadio
 function pintarResultados($resultado, $estadio)
 {
     echo "<div class='d-flex flex-column justify-content-center align-items-center mx-5' style='width: 10rem;'>";
@@ -22,6 +23,7 @@ function pintarResultados($resultado, $estadio)
     echo "</div>";
 }
 
+// Muestra el número de jornada con formato centrado
 function pintarJornada($jornada)
 {
     echo "<div class='text-center mt-4 mb-3'>";
@@ -29,14 +31,15 @@ function pintarJornada($jornada)
     echo "</div>";
 }
 
+// Genera la vista de un partido mostrando los dos equipos y el resultado
 function pintarPartido($equiposDAO, $partido)
 {
     $equipo1 = $equiposDAO->selectById($partido['idequipo1']);
     $equipo2 = $equiposDAO->selectById($partido['idequipo2']);
 
     echo "<div class='d-flex justify-content-center align-items-center mb-2'>";
-    pintarEquipoCard($equipo1,true, 'start', 20, false);
+    pintarEquipoCard($equipo1, true, 'start', 20, false);
     pintarResultados($partido['resultado'], $equipo1['estadio']);
-    pintarEquipoCard($equipo2,false, 'text-end', 20, false);
+    pintarEquipoCard($equipo2, false, 'text-end', 20, false);
     echo "</div>";
 }
